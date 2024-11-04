@@ -1,0 +1,30 @@
+services:
+    mariadb:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: secret123
+            MYSQL_USER: example
+            MYSQL_PASSWORD: secret
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./mariadb/data:/var/lib/mysql
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+            - "8080:80"
+        environment:
+            - PMA_HOST=mariadb
+            - PMA_PORT=3306
+        depends_on:
+            - mariadb
+
+    web:
+        build: .
+        ports:
+            - "80:80"
+        volumes:
+            - ./../:/var/www/html/
+        depends_on:
+            - mariadb
