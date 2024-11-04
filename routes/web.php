@@ -6,6 +6,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/calc', function () {
+Route::get('/calculator', function () {
     return view('calculator');
 });
