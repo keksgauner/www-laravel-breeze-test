@@ -7,5 +7,13 @@ This project has no function and should not be used in any way.
 # Building Panel Assets
 
 ```sh
+/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
+
+composer install --no-dev --optimize-autoloader
+
+php artisan key:generate --force
+php artisan migrate --seed --force
+
 npm install && npm run build
+composer run dev
 ```
