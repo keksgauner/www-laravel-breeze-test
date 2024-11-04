@@ -1,3 +1,11 @@
+FROM node:22 AS build-nodejs
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install --save-dev && npm run build
+
 FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
@@ -19,7 +27,7 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 
 WORKDIR /var/www/html
 
-COPY . /var/www/html
+COPY --from=build-nodejs /app .
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
