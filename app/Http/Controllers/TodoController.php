@@ -3,12 +3,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TodoController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
-        $todos = Todo::all();
+        $todos = Auth::user()->todos;
         return view('todos.index', compact('todos'));
     }
 
@@ -23,24 +27,26 @@ class TodoController extends Controller
             'title' => 'required',
         ]);
 
-        Todo::create($request->only(['title', 'description', 'completed']));
+        $data = $request->only(['title', 'description']);
+        $data['completed'] = $request->has('completed');
+        $data['user_id'] = Auth::id();
+
+        Todo::create($data);
 
         return redirect()->route('todos.index')
             ->with('success', 'Todo created successfully.');
     }
 
-    public function show(Todo $todo)
-    {
-        return view('todos.show', compact('todo'));
-    }
-
     public function edit(Todo $todo)
     {
+        $this->authorize('update', $todo);
         return view('todos.edit', compact('todo'));
     }
 
     public function update(Request $request, Todo $todo)
     {
+        $this->authorize('update', $todo);
+
         $request->validate([
             'title' => 'required',
         ]);
@@ -56,6 +62,7 @@ class TodoController extends Controller
 
     public function destroy(Todo $todo)
     {
+        $this->authorize('delete', $todo);
         $todo->delete();
 
         return redirect()->route('todos.index')

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="container mx-auto mt-8 bg-white rounded-lg shadow-lg">
+    <div class="container mx-auto mt-8 bg-slate-300 rounded-lg shadow-lg p-3">
         <form action="{{ route('todos.store') }}" method="POST">
             @csrf
             <div class="mb-4">
