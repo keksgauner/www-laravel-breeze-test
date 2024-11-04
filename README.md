@@ -15,5 +15,6 @@ php artisan key:generate --force
 php artisan migrate --seed --force
 
 npm install && npm run build
-composer run dev
+
+npm run dev
 ```
