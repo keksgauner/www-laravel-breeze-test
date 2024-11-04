@@ -10,6 +10,8 @@ services:
             - .:/var/www/html
         depends_on:
             - laravel-db
+        environment:
+            - DB_HOST=laravel-db
 
     laravel-db:
         image: mariadb:latest
