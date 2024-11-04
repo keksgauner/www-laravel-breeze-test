@@ -35,7 +35,7 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 
 ```sh
 cp .env.example .env
-composer install --no-dev --optimize-autoloader
+composer install --optimize-autoloader
 
 # Only run the command below if you are installing this Panel for
 # the first time and do not have any data in the database.
