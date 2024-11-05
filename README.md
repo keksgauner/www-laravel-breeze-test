@@ -157,6 +157,9 @@ You need to do [Database Setup]
 # To start and rebuild
 docker compose up -d --build
 
+# Database migrate once
+php artisan migrate --seed --force
+
 # If the permission is denied
 chmod -R 775 ./storage ./bootstrap/cache
 
