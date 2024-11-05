@@ -37,6 +37,9 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 cp .env.example .env
 composer install --optimize-autoloader
 
+# To prevent permission denied
+chmod -R 775 ./storage ./bootstrap/cache
+
 # Only run the command below if you are installing this Panel for
 # the first time and do not have any data in the database.
 php artisan key:generate --force
@@ -125,7 +128,7 @@ server {
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 nvm install 22
 
-# Laravel
+# Laravel php stuff
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 ```
 
@@ -136,7 +139,7 @@ npm install
 
 # Building
 npm run build
-# Autobuild
+# Devmode
 npm run dev
 ```
 
@@ -155,7 +158,7 @@ You need to do [Database Setup]
 docker compose up -d --build
 
 # If the permission is denied
-chmod -R 777 ./storage ./bootstrap/cache
+chmod -R 775 ./storage ./bootstrap/cache
 
 # To stop
 docker compose down
