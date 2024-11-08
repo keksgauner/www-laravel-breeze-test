@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,9 +16,8 @@ Route::get('/calculator', function () {
     return view('calculator');
 })->middleware(['auth', 'verified'])->name('calculator');
 
-Route::middleware('auth')->group(function () {
-    Route::resource('todos', TodoController::class);
-});
+Route::resource('todos', TodoController::class)->middleware(['auth', 'verified']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
