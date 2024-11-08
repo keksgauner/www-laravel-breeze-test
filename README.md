@@ -48,9 +48,9 @@ php artisan key:generate --force
 # Database Setup
 
 ```sh
-# Only run the command below if you are installing this Panel for
-# the first time and do not have any data in the database.
-php artisan migrate:fresh --seed --force
+php artisan p:environment:database
+
+php artisan migrate --force
 ```
 
 # Nginx snippet
@@ -135,7 +135,7 @@ nvm install 22
 # Build Assets
 
 ```sh
-npm install
+npm install --save-dev
 
 # Building
 npm run build
@@ -158,10 +158,10 @@ You need to do [Database Setup]
 docker compose up -d --build
 
 # Database migrate once
-php artisan migrate --seed --force
+php artisan migrate:fresh --seed --force
 
 # If the permission is denied
-chmod -R 775 ./storage ./bootstrap/cache
+chmod -R 777 ./storage ./bootstrap/cache
 
 # To stop
 docker compose down
