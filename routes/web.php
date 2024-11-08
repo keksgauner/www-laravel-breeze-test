@@ -10,13 +10,13 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::get('/calculator', function () {
     return view('calculator');
-})->middleware(['auth', 'verified'])->name('calculator');
+})->middleware(['auth'])->name('calculator');
 
-Route::resource('todos', TodoController::class)->middleware(['auth', 'verified']);
+Route::resource('todos', TodoController::class)->middleware(['auth']);
 
 
 Route::middleware('auth')->group(function () {
@@ -28,6 +28,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
